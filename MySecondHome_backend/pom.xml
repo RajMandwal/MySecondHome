@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.pgmanagement</groupId>
-	<artifactId>pg-management-backend</artifactId>
+	<artifactId>MySecondHome_Backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>pg-management-backend</name>
+	<name>MySecondHome_Backend</name>
 	<description>PG Management System backend using Spring Boot</description>
 	<url/>
 	<licenses>
