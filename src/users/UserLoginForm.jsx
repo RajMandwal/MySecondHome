@@ -1,0 +1,175 @@
+import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
+const UserLoginForm = () => {
+  let navigate = useNavigate();
+
+  const [loginRequest, setLoginRequest] = useState({
+    emailId: "",
+    password: "",
+  });
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleUserInput = (e) => {
+    setLoginRequest({ ...loginRequest, [e.target.name]: e.target.value });
+  };
+
+  const loginAction = (e) => {
+    e.preventDefault();
+
+    fetch("http://localhost:8080/api/user/login", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(loginRequest),
+    })
+      .then((result) => {
+        result.json().then((res) => {
+          if (res.success) {
+
+            if (res.jwtToken !== null) {
+
+              sessionStorage.setItem("active-user", JSON.stringify(res.user));
+
+              if (res.user.role === "Admin") {
+                sessionStorage.setItem("active-admin", JSON.stringify(res.user));
+                sessionStorage.setItem("admin-jwtToken", res.jwtToken);
+              } 
+              else if (res.user.role === "Guest") {
+                sessionStorage.setItem("active-guest", JSON.stringify(res.user));
+                sessionStorage.setItem("guest-jwtToken", res.jwtToken);
+              } 
+              else if (res.user.role === "Owner") {
+                sessionStorage.setItem("active-owner", JSON.stringify(res.user));
+                sessionStorage.setItem("owner-jwtToken", res.jwtToken);
+              }
+            }
+
+            if (res.jwtToken !== null) {
+              toast.success(res.responseMessage, {
+                position: "top-center",
+                autoClose: 1000,
+              });
+
+              setTimeout(() => {
+                window.location.href = "/home";
+              }, 1000);
+            } 
+            else {
+              toast.error(res.responseMessage, {
+                position: "top-center",
+                autoClose: 1000,
+              });
+            }
+
+          } 
+          else {
+            toast.error(res.responseMessage, {
+              position: "top-center",
+              autoClose: 1000,
+            });
+          }
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error("It seems server is down", {
+          position: "top-center",
+          autoClose: 1000,
+        });
+      });
+  };
+
+  return (
+    <div>
+      <div className="mt-2 d-flex aligns-items-center justify-content-center">
+        <div className="form-card border-color" style={{ width: "25rem" }}>
+          <div className="container-fluid">
+
+            <div
+              className="card-header bg-color custom-bg-text mt-2 d-flex justify-content-center align-items-center"
+              style={{
+                borderRadius: "1em",
+                height: "38px",
+              }}
+            >
+              <h4 className="card-title">User Login</h4>
+            </div>
+
+            <div className="card-body mt-3">
+              <form>
+
+                <div className="mb-3 text-color">
+                  <label htmlFor="emailId" className="form-label">
+                    <b>Email Id</b>
+                  </label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    id="emailId"
+                    name="emailId"
+                    required
+                    onChange={handleUserInput}
+                    value={loginRequest.emailId}
+                  />
+                </div>
+
+                {/* PASSWORD WITH EYE ICON */}
+                <div className="mb-3 text-color position-relative">
+                  <label htmlFor="password" className="form-label">
+                    <b>Password</b>
+                  </label>
+
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    className="form-control"
+                    id="password"
+                    name="password"
+                    required
+                    onChange={handleUserInput}
+                    value={loginRequest.password}
+                    autoComplete="on"
+                  />
+
+                  <span
+                    onClick={() => setShowPassword(!showPassword)}
+                    style={{
+                      position: "absolute",
+                      right: "10px",
+                      top: "38px",
+                      cursor: "pointer",
+                      color: "#555",
+                    }}
+                  >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </span>
+                </div>
+
+                <div className="d-flex aligns-items-center justify-content-center mb-2">
+                  <button
+                    type="submit"
+                    className="btn bg-color custom-bg-text"
+                    onClick={loginAction}
+                  >
+                    Login
+                  </button>
+                  <ToastContainer />
+                </div>
+
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default UserLoginForm;

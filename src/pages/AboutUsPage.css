@@ -1,0 +1,59 @@
+.about-container {
+  padding: 80px;
+  text-align: center;
+}
+
+.about-title {
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.about-subtitle {
+  color: #666;
+  margin-bottom: 50px;
+}
+
+.team-big img {
+  width: 80%;
+  border-radius: 20px;
+  margin-bottom: 70px;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+}
+
+.team-card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.team-card:hover {
+  transform: translateY(-10px);
+}
+
+.team-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.team-card p {
+  color: orange;
+}
+
+.mission {
+  margin-top: 80px;
+}
+.about-subtitle {
+  margin-bottom: 6px;
+}
+
+.about-description p {
+  margin-top: 4px;
+}

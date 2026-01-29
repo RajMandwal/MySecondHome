@@ -1,0 +1,83 @@
+.contact-wrapper {
+  min-height: 100vh;
+  background-image: url(./../images/ContactUs.png);
+    background-repeat: no-repeat;   /* STOPS REPEATING */
+  background-position: center;
+  background-size: cover; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-overlay {
+  width: 100%;
+  padding: 60px;
+  display: flex;
+  justify-content: center;
+}
+
+.contact-card {
+  background: rgba(255,255,255,0.6);
+  padding: 50px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 20px 40px rgba(0,0,0,.2);
+  text-align: center;
+}
+
+.contact-card h1 {
+  font-size: 2.8rem;
+  margin-bottom: 10px;
+}
+
+.contact-card p {
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  text-align: left;
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  margin-top: 6px;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #fab440;
+}
+
+.contact-btn {
+  background: #fab440;
+  border: none;
+  padding: 14px 30px;
+  border-radius: 12px;
+  font-size: 18px;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.contact-btn:hover {
+  transform: scale(1.05);
+}
+.success-msg {
+  color: green;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
